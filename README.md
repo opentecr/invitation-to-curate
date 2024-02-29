@@ -1,4 +1,6 @@
+{% comment %}
 {% include body-custom-cookie-consent-banner.html %}
+{% endcomment %}
 
 # Invitation to recurate the NIST TECR database
 
