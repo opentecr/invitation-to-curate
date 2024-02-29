@@ -1,4 +1,4 @@
-{% include cookie-consent-banner.html %}
+{% include body-custom-cookie-consent-banner.html %}
 
 # Invitation to recurate the NIST TECR database
 
