@@ -1,0 +1,120 @@
+<script>
+			const props = {
+			/**
+			 * You must set the cookie name.
+			 **/
+			cookieName: 'beyonk_gdpr',
+
+			/**
+			 * The cookie configuration, such as domain and path.
+			 **/
+			cookieConfig: {
+				domain: 'opentecr.github.io',
+				path: '/'
+			},
+
+			/**
+			 * These are the top two lines of text on the banner
+			 * The 'description' field can include html such as links
+			 **/
+			heading: '',
+			description: 'By default, this page uses cookies with anonymized information to analyze site traffic. Please review the <a href="./privacy_policy.html">Privacy Policy page</a> to learn more. You can review detailed cookie settings by clicking "Preferences", and indicate your consent by clicking "Save my choice" subsequently.',
+
+			/**
+			 * All the button labels
+			 **/
+			acceptLabel: 'Save my choice',
+			settingsLabel: 'Preferences',
+			closeLabel: 'Save my preferences',
+
+			/**
+			 * These are the default opt-ins and their descriptions.
+			 * When value is set to true, the option will automatically be checked on load.
+			 *
+			 * If you don't want to show a category, simply remove the specified key from this object.
+			 **/
+			choices: {
+				necessary: {
+					label: 'Consent cookie.',
+					description:
+						"This cookie is used to save your preference for opt-in or opt-out. It is thus strictly necessary and can't be removed.",
+					value: true
+				},
+				googleanalytics: {
+					label: 'Google Analytics.',
+					description: "Google Analytics is used to create anonymized usage data on this page.",
+					value: true
+				},
+				tracking: false,
+				analytics: false,
+				marketing: false
+			},
+
+			/**
+			 * Show an icon to edit cookies later, when banner is closed.
+			**/
+			showEditIcon: true,
+
+			/**
+			 * These are the functions which are run if a user opts-in to that category.
+			 * You should drop your cookies here (or set a variable to control the later dropping of cookies.
+			 *
+			 * If you are using svelte, you can use events instead - see the Svelte section below.
+			 **/
+			categories: {
+				googleanalytics: function() {
+					console.log('Loading google tag manager script...')
+					var s = document.createElement('script');
+			    s.type = "text/javascript"
+			    s.async = "true";
+			    s.src = "https://www.googletagmanager.com/gtag/js?id=G-M07MFP5GCT";
+			    var x = document.getElementsByTagName('script')[0];
+			    x.parentNode.insertBefore(s, x);
+
+					console.log('Setting the gtag cookie...')
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+					gtag('config', 'G-M07MFP5GCT', {'anonymize_ip': true});
+
+					console.log('Done with category googleanalytics.')
+				},
+				tracking: function() {
+					console.log('No tracking cookies specified')
+				},
+				marketing: function() {
+					console.log('No marketing cookies specified')
+				},
+				necessary: function() {
+					console.log('This runs everytime the user changes the cookie consent preference.')
+
+					console.log('Look whether googleanalytics is removed.')
+					function getCookie(cname) {
+					  var name = cname + "=";
+					  var decodedCookie = decodeURIComponent(document.cookie);
+					  var ca = decodedCookie.split(';');
+					  for(var i = 0; i <ca.length; i++) {
+					    var c = ca[i];
+					    while (c.charAt(0) == ' ') {
+					      c = c.substring(1);
+					    }
+					    if (c.indexOf(name) == 0) {
+					      return c.substring(name.length, c.length);
+					    }
+					  }
+					  return "{\"choices\":{\"googleanalytics\":false}}";
+					}
+					var myObj = JSON.parse(getCookie("beyonk_gdpr"))
+
+					if (myObj.choices.googleanalytics == false) {
+						document.cookie = "_ga=0;Domain=.opentecr.github.io;expires=" + new Date + ";";
+						document.cookie = "_gid=0;Domain=.opentecr.github.io;expires=" + new Date + ";";
+						document.cookie = "_ga_M07MFP5GCT=0;Domain=.opentecr.github.io;expires=" + new Date + ";";
+					}
+
+				}
+			}
+			}
+		</script>
+
+<cookie-consent-banner cookie-name="beyonk_gdpr" description="bar" />
