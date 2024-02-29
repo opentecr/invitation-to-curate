@@ -1,3 +1,5 @@
+{% include cookie-consent-banner.html %}
+
 # Invitation to recurate the NIST TECR database
 
 Dear reader,
