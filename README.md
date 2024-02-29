@@ -8,7 +8,7 @@ We are inviting you to join a curation effort, with the final goal to digitalize
 
 The Goldberg reviews are a big collection of structured information about primary scientific literature, which report on apparent equilibrium constants and the experimental conditions they were measured in. 
 
-As you might know, there is an online database (https://randr.nist.gov/) and some csv files (https://zenodo.org/records/5495826), but we want to consolidate those and make sure we really captured ALL the information from the PDFs. 
+As you might know, there is an online database ([https://randr.nist.gov/](https://randr.nist.gov/)) and some csv files ([https://zenodo.org/records/5495826](https://zenodo.org/records/5495826)), but we want to consolidate those and make sure we really captured ALL the information from the PDFs. 
 
 We estimated that we need a total of 50 working hours to bring the data into a good shape, and possibly work further from this to bring it into excellent shape.
 
